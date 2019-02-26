@@ -1,27 +1,27 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# jazz
+# dance
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-The goal of jazz is to … 🎷 🎶
+Dancing 💃 with the stats, aka `tibble()` dancing 🕺.
 
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(jazz)
+library(dance)
 library(tidyselect)
 
 g <- dplyr::group_by(iris, Species)
 
 # that's a bit like dplyr::summarise 
 g %>% 
-  jazz(
+  waltz(
     Sepal.Length = ~ mean(Sepal.Length), 
     Sepal.Width  = ~ mean(Sepal.Width) 
   )
@@ -35,7 +35,7 @@ g %>%
 # however it's using formulas instead of quosures
 # and similarly to rap it can empower the lhs of the formula, 
 g %>% 
-  jazz(
+  waltz(
     Sepal.Length = character() ~ mean(Sepal.Length)
   )
 #> # A tibble: 3 x 2
@@ -49,7 +49,7 @@ g %>%
 # the only requirement is that the vec_size() 
 # of the output has to be 1
 g %>% 
-  jazz(
+  waltz(
     Sepal =  ~ tibble(Sepal.Length = mean(Sepal.Length), Sepal.Width = mean(Sepal.Width))
   )
 #> # A tibble: 3 x 2
@@ -62,27 +62,12 @@ g %>%
 
 ### swing
 
-There’s no `jazz_at()` or `jazz_if()` but you can use `swing()` if you
+There’s no `waltz_at()` or `waltz_if()` but you can use `swing()` if you
 want to use the same function for a bunch of columns:
 
 ``` r
 g %>% 
-  jazz(
-    !!!swing(mean, ends_with("th"))
-  )
-#> # A tibble: 3 x 5
-#>   Species    Sepal.Length Sepal.Width Petal.Length Petal.Width
-#>   <fct>             <dbl>       <dbl>        <dbl>       <dbl>
-#> 1 setosa             5.01        3.43         1.46       0.246
-#> 2 versicolor         5.94        2.77         4.26       1.33 
-#> 3 virginica          6.59        2.97         5.55       2.03
-```
-
-aaaand you actually do not need to `!!!`, this works as well :
-
-``` r
-g %>% 
-  jazz(
+  waltz(
     swing(mean, ends_with("th"))
   )
 #> # A tibble: 3 x 5
@@ -106,7 +91,7 @@ pattern:
 
 ``` r
 g %>% 
-  jazz(
+  waltz(
     swing(mean, starts_with("Petal"), .name = "mean_{var}"),
     swing(median, starts_with("Petal"), .name = "median_{var}")
   )
@@ -123,7 +108,7 @@ The first argument of `swing()` is a function, or a formula:
 
 ``` r
 g %>% 
-  jazz(
+  waltz(
     swing(~mean(., na.rm = TRUE), starts_with("Petal"), .name = "mean_{var}")
   )
 #> # A tibble: 3 x 3

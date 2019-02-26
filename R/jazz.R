@@ -1,14 +1,14 @@
 
-jazz_env <- new.env()
+dance_env <- new.env()
 
 set_tbl <- function(.tbl) {
-  old <- jazz_env[["context"]]
-  jazz_env[["context"]] <- .tbl
+  old <- dance_env[["context"]]
+  dance_env[["context"]] <- .tbl
   old
 }
 
 get_tbl <- function() {
-  jazz_env[["context"]]
+  dance_env[["context"]]
 }
 
 map_for_type <- function(.ptype, combine = vec_c) {
@@ -76,21 +76,21 @@ tbl_slicer_args <- function(.tbl) {
   list2(`.::index::.` = missing_arg(), !!!args)
 }
 
-jazz_lambda <- function(.tbl, .expr) {
+dance_lambda <- function(.tbl, .expr) {
   env <- quo_get_env(.expr)
   lambda <- rlang::new_function(
     tbl_slicer_args(.tbl),
     quo_get_expr(.expr),
     env = env
   )
-  attr(lambda, "class") <- "jazz_lambda"
+  attr(lambda, "class") <- "dance_lambda"
   lambda
 }
 
 #' @export
 eval_grouped <- function(.tbl, .quo = quo(42L), .rows = group_rows(.tbl), .ptype = NULL) {
   # derive a function from the types of .tbl and the expression
-  lambda <- jazz_lambda(.tbl, .quo)
+  lambda <- dance_lambda(.tbl, .quo)
 
   # the appropriate mapper for the ptype
   mapper <- map_for(.ptype)
@@ -100,7 +100,7 @@ eval_grouped <- function(.tbl, .quo = quo(42L), .rows = group_rows(.tbl), .ptype
 }
 
 #' @export
-jazz <- function(.tbl, ..., .rows = group_rows(.tbl)) {
+waltz <- function(.tbl, ..., .rows = group_rows(.tbl)) {
   set_tbl(.tbl)
   formulas <- list2(...)
 
@@ -141,7 +141,7 @@ swing <- function(.fun, ..., .tbl = get_tbl(), .name = "{var}") {
 }
 
 #' @export
-print.jazz_lambda <- function(x, ...) {
+print.dance_lambda <- function(x, ...) {
   expr_print(unclass(x))
   invisible(x)
 }
