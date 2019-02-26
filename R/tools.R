@@ -1,4 +1,3 @@
-
 dance_env <- new.env()
 
 set_tbl <- function(.tbl) {
@@ -100,49 +99,7 @@ eval_grouped <- function(.tbl, .quo = quo(42L), .rows = group_rows(.tbl), .ptype
 }
 
 #' @export
-waltz <- function(.tbl, ..., .rows = group_rows(.tbl)) {
-  set_tbl(.tbl)
-  formulas <- list2(...)
-
-  if(is.null(formulas)) {
-    names(formulas) <- rep("", length(formulas))
-  }
-  assert_that(
-    all(map_lgl(formulas, is_formula)),
-    msg = "`...` should be a named list of formulas"
-  )
-
-  parts <- map(formulas, ~{
-    eval_grouped(.tbl, new_quosure(f_rhs(.x), f_env(.x)), .rows = .rows, .ptype = eval_bare(f_lhs(.x), f_env(.x)))
-  })
-
-  tibble(!!!group_keys(.tbl), !!!parts)
-}
-
-#' @export
-swing <- function(.fun, ..., .tbl = get_tbl(), .name = "{var}") {
-  vars <- vars_select(tbl_vars(.tbl), ...)
-  names(vars) <- glue(.name, var = names(vars))
-
-  if (is_function(.fun)) {
-    env <- caller_env()
-    .ptype <- NULL
-    map(vars, ~new_formula(NULL, expr((!!.fun)(!!sym(.)))))
-  } else if(is_formula(.fun)){
-    env <- f_env(.fun)
-    .ptype <- eval_bare(f_lhs(.fun), env)
-    .fun <- as_function(new_formula(NULL, f_rhs(.fun), env = env), env = env)
-  }
-
-  structure(
-    map(vars, ~new_formula(.ptype, expr((!!.fun)(!!sym(.))))),
-    class = "spliced"
-  )
-}
-
-#' @export
 print.dance_lambda <- function(x, ...) {
   expr_print(unclass(x))
   invisible(x)
 }
-
