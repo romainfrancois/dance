@@ -13,4 +13,4 @@ NULL
 tibble::tibble
 
 #' @export
-dplyr::tbl_vars
+magrittr::`%>%`

@@ -1,6 +1,6 @@
 
 #' @export
-waltz <- function(.tbl, ..., .rows = group_rows(.tbl)) {
+waltz <- function(.tbl, ...) {
   set_tbl(.tbl)
   formulas <- list2(...)
 
@@ -12,10 +12,31 @@ waltz <- function(.tbl, ..., .rows = group_rows(.tbl)) {
     msg = "`...` should be a named list of formulas"
   )
 
+  .rows <- group_rows(.tbl)
   parts <- map(formulas, ~{
-    eval_grouped(.tbl, new_quosure(f_rhs(.x), f_env(.x)), .rows = .rows, .ptype = eval_bare(f_lhs(.x), f_env(.x)))
+    eval_grouped(
+      .tbl,
+      new_quosure(f_rhs(.x), f_env(.x)),
+      .rows = .rows,
+      .ptype = eval_bare(f_lhs(.x), f_env(.x))
+    )
   })
 
-  tibble(!!!group_keys(.tbl), !!!parts)
+  as_tibble(parts)
+}
+
+#' @export
+polka <- function(.tbl) {
+  groups <- head(groups(.tbl), -1L)
+
+  .tbl %>%
+    group_keys() %>%
+    group_by(!!!groups)
+
+}
+
+#' @export
+tango <- function(.tbl, ...) {
+  bind_cols(waltz(.tbl, ...), polka(.tbl))
 }
 

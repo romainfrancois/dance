@@ -49,9 +49,6 @@ is_bare_vector <- function(x) {
   is_vector(x) && !is.object(x) && is.null(attr(x, "class"))
 }
 
-#' @export
-magrittr::`%>%`
-
 globalVariables(c(".::index::.", ".::rhs::.", "lambda", "mapper", "name", "."))
 
 slicer_bare <- function(.) {
@@ -86,7 +83,6 @@ dance_lambda <- function(.tbl, .expr) {
   lambda
 }
 
-#' @export
 eval_grouped <- function(.tbl, .quo = quo(42L), .rows = group_rows(.tbl), .ptype = NULL) {
   # derive a function from the types of .tbl and the expression
   lambda <- dance_lambda(.tbl, .quo)

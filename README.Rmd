@@ -67,7 +67,7 @@ g %>%
 The results are named after the names of the input columns, i.e. 
 
 ```{r}
-tidyselect::vars_select(tbl_vars(g), ends_with("th"))
+tidyselect::vars_select(dplyr::tbl_vars(g), ends_with("th"))
 ```
 
 The `.name` gives you a way to control the names by means 

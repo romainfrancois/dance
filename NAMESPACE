@@ -2,9 +2,9 @@
 
 S3method(print,dance_lambda)
 export("%>%")
-export(eval_grouped)
+export(polka)
 export(swing)
-export(tbl_vars)
+export(tango)
 export(tibble)
 export(waltz)
 import(dplyr)
