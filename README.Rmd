@@ -28,5 +28,96 @@ library(dance)
 library(tidyselect)
 
 g <- dplyr::group_by(iris, Species)
-# TODO: waltz, swing, polka, tango
 ```
+
+### waltz(), polka(), tango()
+
+These are in the neighborhood of `dplyr::summarise()`. 
+
+`waltz()` takes a grouped tibble and a list of formulas and returns a tibble with: 
+as many columns as supplied formulas, one row per group. It does not prepend the grouping 
+variables (see `tango` for that). 
+  
+```{r}
+g %>% 
+  waltz(
+    Sepal.Length = ~mean(Sepal.Length), 
+    Sepal.Width  = ~mean(Sepal.Width)
+  )
+```
+
+`polka()` deals with peeling off one layer of grouping: 
+
+```{r}
+g %>% 
+  polka()
+```
+
+`tango()` binds the results of `polka()` and `waltz()` so is the closest to 
+`dplyr::summarise()` 
+
+```{r}
+g %>% 
+  tango(
+    Sepal.Length = ~mean(Sepal.Length), 
+    Sepal.Width  = ~mean(Sepal.Width)
+  )
+```
+
+### swing, twist, rumba, zumba
+
+There is no `waltz_at()`, `tango_at()`, etc ... but instead we can use 
+either the same function on a set of columns or a set of functions on the same column. 
+
+For this, we need to learn new dance moves: 
+
+`swing()` and `twist()` are for applying the same function to a set 
+of columns: 
+
+```{r}
+g %>% 
+  tango(swing(mean, starts_with("Petal")))
+
+g %>% 
+  tango(twist(mean, starts_with("Petal")))
+```
+
+They differ in the type of column is created and how to name them: 
+
+ - `swing()` makes as many new columns as are selected by the tidy selection, and 
+   the columns are named using a `.name` glue pattern, this way we might `swing()`
+   several times. 
+   
+```{r}
+g %>% 
+  tango(
+    swing(mean, starts_with("Petal"), .name = "mean_{var}"), 
+    swing(median, starts_with("Petal"), .name = "median_{var}"), 
+  )
+```
+
+ - `twist()` instead creates a single data frame column, and `.name` control its 
+ name: 
+ 
+```{r}
+g %>% 
+  tango(
+    twist(mean, starts_with("Petal"), .name = "mean"), 
+    twist(median, starts_with("Petal"), .name = "median"), 
+  )
+```
+
+The first arguments of `swing()` and `twist()` are either a function or a 
+formula that uses `.` as a placeholder. Subsequent arguments are 
+tidyselect selections. 
+
+You can combine `swing()` and `twist()` in the same `tango()` or `waltz()`: 
+
+```{r}
+g %>% 
+  tango(
+    swing(mean, starts_with("Petal"), .name = "mean_{var}"), 
+    twist(median, contains("."), .name = "median")
+  )
+```
+

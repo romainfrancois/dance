@@ -73,13 +73,36 @@ tbl_slicer_args <- function(.tbl) {
 }
 
 #' @export
-choreography <- function(.tbl, ..., .formulas = list2(...), .env = caller_env()) {
+choreography <- function(.tbl, ..., .formulas = list2(...), .env = caller_env(), .size = c("one", "n", "same")) {
   args <- tbl_slicer_args(.tbl)
-  body <- expr({
-    list(
-      !!!map(.formulas, f_rhs)
-    )
-  })
+
+  .size <- match.arg(.size)
+
+  body <- switch(.size,
+
+    # making sure all the parts have vec_size() == 1
+    one = expr({
+      parts <- list(!!!map(.formulas, f_rhs))
+      purrr::walk(parts, ~ assertthat::assert_that(vctrs::vec_size(.) == 1L))
+      parts
+    }),
+
+    # making sure all the parts have vec_size == n()
+    n   = expr({
+      parts <- list(!!!map(.formulas, f_rhs))
+      purrr::walk(parts, ~ assertthat::assert_that(vctrs::vec_size(.) == length(`.::index::.`)))
+      parts
+    }),
+
+    # making sure all the parts have same vec_size()
+    same = expr({
+      parts <- list(!!!map(.formulas, f_rhs))
+      lengths <- map_int(parts, vec_size)
+      assert_that(all(diff(lengths) == 0L))
+      parts
+    })
+  )
+
   structure(rlang::new_function(args, body, env = .env), class = "choreography")
 }
 
