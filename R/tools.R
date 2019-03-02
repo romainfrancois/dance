@@ -72,34 +72,6 @@ tbl_slicer_args <- function(.tbl) {
   list2(`.::index::.` = missing_arg(), !!!args)
 }
 
-dance_lambda <- function(.tbl, .expr) {
-  env <- quo_get_env(.expr)
-  lambda <- rlang::new_function(
-    tbl_slicer_args(.tbl),
-    quo_get_expr(.expr),
-    env = env
-  )
-  attr(lambda, "class") <- "dance_lambda"
-  lambda
-}
-
-eval_grouped <- function(.tbl, .quo = quo(42L), .rows = group_rows(.tbl), .ptype = NULL) {
-  # derive a function from the types of .tbl and the expression
-  lambda <- dance_lambda(.tbl, .quo)
-
-  # the appropriate mapper for the ptype
-  mapper <- map_for(.ptype)
-
-  # evaluate the expression for each group
-  mapper(.rows, lambda)
-}
-
-#' @export
-print.dance_lambda <- function(x, ...) {
-  expr_print(unclass(x))
-  invisible(x)
-}
-
 #' @export
 choreography <- function(.tbl, ..., .formulas = list2(...), .env = caller_env()) {
   args <- tbl_slicer_args(.tbl)
