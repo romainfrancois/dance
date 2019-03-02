@@ -16,9 +16,7 @@ swing <- function(.fun, ..., .tbl = get_tbl(), .name = "{var}", .env = caller_en
 
   c(.ptype, .fun) %<-% promote_formula(.fun, .env)
 
-  splice(
-    map(vars, ~new_formula(.ptype, expr((!!.fun)(!!sym(.)))))
-  )
+  splice(map(vars, ~new_formula(.ptype, expr((!!.fun)(!!sym(.))))))
 }
 
 #' @export
@@ -32,3 +30,15 @@ twist <- function(.fun, ..., .tbl = get_tbl(), .name = "data", .env = caller_env
   splice(list2(!!.name := new_formula(NULL, rhs, env = .env)))
 }
 
+#' @export
+rumba <- function(.var, ..., .tbl = get_tbl(), .name = "{fun}", .env = caller_env()) {
+  .var <- quo_name(enquo(.var))
+  .funs <- list2(...)
+  assert_that(!is.null(names(.funs)))
+  names(.funs) <- glue(.name, fun = names(.funs), idx = seq_along(.funs))
+
+  splice(map(.funs, ~{
+    c(.ptype, .fun) %<-% promote_formula(.x, .env)
+    new_formula(.ptype, expr((!!.fun)(!!sym(.var))))
+  }))
+}
