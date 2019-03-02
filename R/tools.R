@@ -89,3 +89,14 @@ print.choreography <- function(x, ...) {
   invisible(x)
 }
 
+promote_formula <- function(.fun, .env) {
+  if (is_function(.fun)) {
+    .ptype <- NULL
+  } else if(is_formula(.fun)){
+    .ptype <- eval_bare(f_lhs(.fun), .env)
+    .fun <- as_function(new_formula(NULL, f_rhs(.fun), env = .env), env = .env)
+  }
+
+  list(.ptype, .fun)
+}
+
