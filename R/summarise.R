@@ -20,8 +20,11 @@ waltz <- function(.tbl, ..., .env = caller_env()) {
   .ptypes <- map(formulas, ~eval_bare(f_lhs(.x), f_env(.x)))
 
   # for each group, apply the choreography derived from the formulas
-  moves <- choreography(.tbl, .formulas = formulas, .env = .env, .size = "one")
+  moves <- choreography(.tbl, .formulas = formulas, .env = .env)
   steps <- map(.rows, moves)
+
+  # check all results are length 1
+  walk(steps, ~walk(.x, ~assert_that(vec_size(.x) == 1L)))
 
   # transpose and combine
   results <- map2(.ptypes, seq_along(.ptypes), ~vec_c(!!!map(steps, .y), .ptype = .x))
