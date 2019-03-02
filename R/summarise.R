@@ -42,6 +42,6 @@ polka <- function(.tbl) {
 
 #' @export
 tango <- function(.tbl, ...) {
-  bind_cols(polka(.tbl), waltz(.tbl, ...))
+  vec_cbind(polka(.tbl), waltz(.tbl, ...))
 }
 

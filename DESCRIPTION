@@ -16,5 +16,6 @@ Imports:
     assertthat,
     tidyselect,
     glue,
-    tibble
+    tibble,
+    zeallot
 RoxygenNote: 6.1.1
