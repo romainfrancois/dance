@@ -72,7 +72,7 @@ g %>%
 #> 3 virginica          6.59        2.97
 ```
 
-### swing, twist, rumba, zumba
+### swing, twist
 
 There is no `waltz_at()`, `tango_at()`, etc … but instead we can use
 either the same function on a set of columns or a set of functions on
@@ -165,4 +165,24 @@ g %>%
 #> 2 versic…             4.26            1.33               5.9          2.8
 #> 3 virgin…             5.55            2.03               6.5          3  
 #> # … with 2 more variables: $Petal.Length <dbl>, $Petal.Width <dbl>
+```
+
+### rumba, zumba
+
+Similarly `rumba()` can be used to apply several functions to a single
+column. `rumba()` creates single columns and `zumba()` packs them into a
+data frame column.
+
+``` r
+g %>% 
+  tango(
+    rumba(Sepal.Width, mean = mean, median = median, .name = "Sepal_{fun}"), 
+    zumba(Petal.Width, mean = mean, median = median, .name = "Petal")
+  )
+#> # A tibble: 3 x 4
+#>   Species    Sepal_mean Sepal_median Petal$mean $median
+#>   <fct>           <dbl>        <dbl>      <dbl>   <dbl>
+#> 1 setosa           3.43          3.4      0.246     0.2
+#> 2 versicolor       2.77          2.8      1.33      1.3
+#> 3 virginica        2.97          3        2.03      2
 ```

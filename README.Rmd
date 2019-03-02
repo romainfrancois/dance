@@ -64,7 +64,7 @@ g %>%
   )
 ```
 
-### swing, twist, rumba, zumba
+### swing, twist
 
 There is no `waltz_at()`, `tango_at()`, etc ... but instead we can use 
 either the same function on a set of columns or a set of functions on the same column. 
@@ -120,4 +120,18 @@ g %>%
     twist(median, contains("."), .name = "median")
   )
 ```
+
+### rumba, zumba
+
+Similarly `rumba()` can be used to apply several functions to a single column. 
+`rumba()` creates single columns and `zumba()` packs them into a data frame column. 
+
+```{r}
+g %>% 
+  tango(
+    rumba(Sepal.Width, mean = mean, median = median, .name = "Sepal_{fun}"), 
+    zumba(Petal.Width, mean = mean, median = median, .name = "Petal")
+  )
+```
+
 
