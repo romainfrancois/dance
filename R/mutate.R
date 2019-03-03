@@ -37,7 +37,7 @@ chacha.grouped_df <- function(.tbl) {
 
   new_grouped_df(
     vec_slice(.tbl, flatten_int(rows)),
-    vec_cbind(group_keys(.tbl), tibble(.rows := map2(starts, ends, seq))),
+    vec_cbind(group_keys(.tbl), tibble(.rows := map2(starts, ends, seq2))),
     class = "dance_grouped_df"
   )
 }
