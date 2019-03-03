@@ -51,24 +51,24 @@ is_bare_vector <- function(x) {
 
 globalVariables(c(".::index::.", ".::rhs::.", "lambda", "mapper", "name", "."))
 
-slicer_bare <- function(.) {
+slicer_bare <- function(., data) {
   expr(.subset(!!., `.::index::.`))
 }
 
-slicer_generic <- function(.) {
+slicer_generic <- function(., data) {
   expr(vec_slice(!!., `.::index::.`))
 }
 
-slicer <- function(.) {
+slicer <- function(., data) {
   if (is_bare_vector(.)) {
-    slicer_bare(.)
+    slicer_bare(., data)
   } else {
-    slicer_generic(.)
+    slicer_generic(., data)
   }
 }
 
 tbl_slicer_args <- function(.tbl) {
-  args <- map(.tbl, slicer)
+  args <- map(.tbl, slicer, data = .tbl)
   list2(`.::index::.` = missing_arg(), !!!args)
 }
 
