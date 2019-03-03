@@ -18,9 +18,14 @@ waltz <- function(.tbl, ..., .env = caller_env()) {
 polka <- function(.tbl) {
   groups <- head(groups(.tbl), -1L)
 
-  .tbl %>%
+  .tbl <- .tbl %>%
     group_keys() %>%
     group_by(!!!groups)
+
+  if (is_grouped_df(.tbl) && !inherits(.tbl, "dance_grouped_df")) {
+    class(.tbl) <- c("dance_grouped_df", class(.tbl))
+  }
+  .tbl
 }
 
 #' @export
