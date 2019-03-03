@@ -18,16 +18,17 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 Dancing `r emo::ji("woman_dancing")` with the stats, aka `tibble()` dancing `r emo::ji("man_dancing")`. 
+`dance` is a sort of reinvention of `dplyr` classic verbs, with a more modern stack 
+underneath, i.e. it leverages a lot from `vctrs` and `rlang`. 
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+We'll illustrate tibble dancing with `iris` grouped by `Species`. 
 
 ```{r example}
-library(dance)
+library(dplyr, warn.conflicts = FALSE)
 library(tidyselect)
+g <- iris %>% group_by(Species)
 
-g <- dplyr::group_by(iris, Species)
+library(dance)
 ```
 
 ### waltz(), polka(), tango()
@@ -132,6 +133,30 @@ g %>%
     rumba(Sepal.Width, mean = mean, median = median, .name = "Sepal_{fun}"), 
     zumba(Petal.Width, mean = mean, median = median, .name = "Petal")
   )
+```
+
+### salsa, chacha, samba
+
+Now we enter the realms of `dplyr::mutate()` with: 
+
+ - `salsa()` : to create new columns
+ - `chacha()`: to reorganize a grouped tibble so that data for each group is contiguous
+ - `samba()` : `chacha()` + `salsa()` 
+
+```{r}
+g %>% 
+  salsa(
+    Sepal = ~Sepal.Length * Sepal.Width, 
+    Petal = ~Petal.Length * Petal.Width
+  )
+```
+
+You can `swing()`, `twist()`, `rumba()` and `zumba()` here too, and if you
+want the original data, you can use `samba()` instead of `salsa()`: 
+
+```{r}
+g %>% 
+  samba(twist(~ . - mean(.), everything(), -Species, .name = "centered"))
 ```
 
 

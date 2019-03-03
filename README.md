@@ -7,17 +7,18 @@
 
 <!-- badges: end -->
 
-Dancing 💃 with the stats, aka `tibble()` dancing 🕺.
+Dancing 💃 with the stats, aka `tibble()` dancing 🕺. `dance` is a sort of
+reinvention of `dplyr` classic verbs, with a more modern stack
+underneath, i.e. it leverages a lot from `vctrs` and `rlang`.
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+We’ll illustrate tibble dancing with `iris` grouped by `Species`.
 
 ``` r
-library(dance)
+library(dplyr, warn.conflicts = FALSE)
 library(tidyselect)
+g <- iris %>% group_by(Species)
 
-g <- dplyr::group_by(iris, Species)
+library(dance)
 ```
 
 ### waltz(), polka(), tango()
@@ -185,4 +186,60 @@ g %>%
 #> 1 setosa           3.43          3.4      0.246     0.2
 #> 2 versicolor       2.77          2.8      1.33      1.3
 #> 3 virginica        2.97          3        2.03      2
+```
+
+### salsa, chacha, samba
+
+Now we enter the realms of `dplyr::mutate()` with:
+
+  - `salsa()` : to create new columns
+  - `chacha()`: to reorganize a grouped tibble so that data for each
+    group is contiguous
+  - `samba()` : `chacha()` + `salsa()`
+
+<!-- end list -->
+
+``` r
+g %>% 
+  salsa(
+    Sepal = ~Sepal.Length * Sepal.Width, 
+    Petal = ~Petal.Length * Petal.Width
+  )
+#> # A tibble: 150 x 2
+#>    Sepal Petal
+#>    <dbl> <dbl>
+#>  1  17.8 0.280
+#>  2  14.7 0.280
+#>  3  15.0 0.26 
+#>  4  14.3 0.3  
+#>  5  18   0.280
+#>  6  21.1 0.68 
+#>  7  15.6 0.42 
+#>  8  17   0.3  
+#>  9  12.8 0.280
+#> 10  15.2 0.15 
+#> # … with 140 more rows
+```
+
+You can `swing()`, `twist()`, `rumba()` and `zumba()` here too, and if
+you want the original data, you can use `samba()` instead of `salsa()`:
+
+``` r
+g %>% 
+  samba(twist(~ . - mean(.), everything(), -Species, .name = "centered"))
+#> # A tibble: 150 x 6
+#>    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#>           <dbl>       <dbl>        <dbl>       <dbl> <fct>  
+#>  1          5.1         3.5          1.4         0.2 setosa 
+#>  2          4.9         3            1.4         0.2 setosa 
+#>  3          4.7         3.2          1.3         0.2 setosa 
+#>  4          4.6         3.1          1.5         0.2 setosa 
+#>  5          5           3.6          1.4         0.2 setosa 
+#>  6          5.4         3.9          1.7         0.4 setosa 
+#>  7          4.6         3.4          1.4         0.3 setosa 
+#>  8          5           3.4          1.5         0.2 setosa 
+#>  9          4.4         2.9          1.4         0.2 setosa 
+#> 10          4.9         3.1          1.5         0.1 setosa 
+#> # … with 140 more rows, and 4 more variables: centered$Sepal.Length <dbl>,
+#> #   $Sepal.Width <dbl>, $Petal.Length <dbl>, $Petal.Width <dbl>
 ```
