@@ -4,11 +4,10 @@ waltz <- function(.tbl, ..., .env = caller_env()) {
   # evaluate all the formulas in each group
   c(ptypes, steps, .) %<-% ballet(.tbl, ..., .env = .env)
 
-  # check all results are length 1
-  walk(steps, ~walk(.x, ~assert_that(vec_size(.x) == 1L)))
+  mappers <- map(ptypes, map_for_type)
 
   # transpose and combine
-  results <- map2(ptypes, seq_along(ptypes), ~vec_c(!!!map(steps, .y), .ptype = .x))
+  results <- map2(mappers, seq_along(mappers), ~.x(steps, .y))
 
   # structure results as a tibble
   as_tibble(results)

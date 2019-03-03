@@ -12,6 +12,7 @@ get_tbl <- function() {
 
 map_for_type <- function(.ptype, combine = vec_c) {
   function(.x, .f, ...) {
+    .f <- as_mapper(.f)
     out <- map(.x, function(x){
       res <- .f(x, ...)
       stopifnot(vec_size(res) == 1L)
