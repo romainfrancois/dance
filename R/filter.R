@@ -1,4 +1,16 @@
 #' @export
+mambo <- function(.fun, ..., .tbl = get_tbl(), .op = and, .env = caller_env()) {
+  vars <- vars_select(tbl_vars(.tbl), ...)
+
+  c(., .fun) %<-% promote_formula(.fun, .env)
+
+  predicate <- map(vars, ~ expr((!!.fun)((!!sym(.))))) %>%
+    reduce(~expr((!!.op)(!!.x, !!.y)))
+
+  new_formula(NULL, predicate, env = .env)
+}
+
+#' @export
 bolero <- function(.tbl, what, .env = caller_env()) {
   c(., steps, rows) %<-% ballet(.tbl, what, .env = .env)
 
