@@ -49,7 +49,7 @@ is_bare_vector <- function(x) {
   is_vector(x) && !is.object(x) && is.null(attr(x, "class"))
 }
 
-globalVariables(c(".::index::.", ".::rhs::.", "lambda", "mapper", "name", "."))
+globalVariables(c(".::index::.", "mapper", "name", "."))
 
 slicer_bare <- function(., data) {
   expr(.subset(!!., `.::index::.`))
