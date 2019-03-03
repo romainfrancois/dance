@@ -5,6 +5,8 @@
 \alias{reexports}
 \alias{tibble}
 \alias{\%>\%}
+\alias{and}
+\alias{or}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -12,7 +14,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr]{\%>\%}}, \code{\link[magrittr]{and}}, \code{\link[magrittr]{or}}}
 
   \item{tibble}{\code{\link[tibble]{tibble}}}
 }}

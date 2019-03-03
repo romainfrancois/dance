@@ -1,5 +1,5 @@
 #' @export
-mambo <- function(.fun, ..., .tbl = get_tbl(), .op = and, .env = caller_env()) {
+mambo <- function(.fun, ..., .tbl = get_tbl(), .op = `&`, .env = caller_env()) {
   vars <- vars_select(tbl_vars(.tbl), ...)
 
   c(., .fun) %<-% promote_formula(.fun, .env)

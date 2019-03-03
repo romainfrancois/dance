@@ -159,4 +159,20 @@ g %>%
   samba(twist(~ . - mean(.), everything(), -Species, .name = "centered"))
 ```
 
+### bolero and mambo
+
+`bolero()` is similar to `dplyr::filter()` but only takes one thing, as a formula. The 
+formula may be made by `mambo()` if you want to apply the same predicate to a tidyselection 
+of columns: 
+
+```{r}
+g %>% 
+  bolero(~Sepal.Width > 4)
+
+g %>% 
+  bolero(mambo(~. > 4, starts_with("Sepal")))
+
+g %>% 
+  bolero(mambo(~. > 4, starts_with("Sepal"), .op = or))
+```
 

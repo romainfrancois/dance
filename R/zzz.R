@@ -7,6 +7,7 @@
 #' @importFrom assertthat assert_that
 #' @importFrom glue glue
 #' @importFrom tibble tibble
+#' @importFrom magrittr and or
 NULL
 
 #' @export
@@ -14,3 +15,9 @@ tibble::tibble
 
 #' @export
 magrittr::`%>%`
+
+#' @export
+magrittr::and
+
+#' @export
+magrittr::or
