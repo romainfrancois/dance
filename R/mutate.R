@@ -19,6 +19,16 @@ salsa <- function(.tbl, ..., .env = caller_env()) {
 
 #' @export
 chacha <- function(.tbl) {
+  UseMethod("chacha")
+}
+
+#' @export
+chacha.data.frame <- function(.tbl) {
+  .tbl
+}
+
+#' @export
+chacha.grouped_df <- function(.tbl) {
   rows <- group_rows(.tbl)
 
   sizes <- lengths(rows)
@@ -30,6 +40,11 @@ chacha <- function(.tbl) {
     vec_cbind(group_keys(.tbl), tibble(.rows := map2(starts, ends, seq))),
     class = "dance_grouped_df"
   )
+}
+
+#' @export
+chacha.dance_grouped_df <- function(.tbl) {
+  .tbl
 }
 
 #' @export
