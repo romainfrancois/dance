@@ -2,7 +2,7 @@ Package: dance
 Title: Tibble Dancing
 Version: 0.0.0.9000
 Authors@R: person("Romain", "François", email = "romain@purrple.cat", role = c("aut", "cre"))
-Description: Tibble dancing()
+Description: Tibble dancing. 
 Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -17,6 +17,7 @@ Imports:
     tidyselect,
     glue,
     tibble,
-    zeallot
+    zeallot,
+    utils
 RoxygenNote: 6.1.1
 SystemRequirements: C++11
