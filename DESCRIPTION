@@ -19,3 +19,4 @@ Imports:
     tibble,
     zeallot
 RoxygenNote: 6.1.1
+SystemRequirements: C++11

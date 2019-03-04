@@ -31,7 +31,7 @@ g <- iris %>% group_by(Species)
 library(dance)
 ```
 
-### waltz(), polka(), tango()
+### waltz(), polka(), tango(), charleston()
 
 These are in the neighborhood of `dplyr::summarise()`. 
 
@@ -64,6 +64,17 @@ g %>%
     Sepal.Width  = ~mean(Sepal.Width)
   )
 ```
+
+`charleston()` is like `tango` but it packs the new columns in a tibble: 
+
+```{r}
+g %>% 
+  charleston(
+    Sepal.Length = ~mean(Sepal.Length), 
+    Sepal.Width  = ~mean(Sepal.Width)
+  )
+```
+
 
 ### swing, twist
 

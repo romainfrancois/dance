@@ -33,3 +33,7 @@ tango <- function(.tbl, ...) {
   vec_cbind(polka(.tbl), waltz(.tbl, ...))
 }
 
+#' @export
+charleston <- function(.tbl, ..., .name = "data") {
+  vec_cbind(polka(.tbl), tibble(!!.name := waltz(.tbl, ...)))
+}
