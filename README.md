@@ -204,7 +204,7 @@ g %>%
 #> 3 virginica        2.97          3        2.03      2
 ```
 
-### salsa, chacha, samba
+### salsa, chacha, samba, madison
 
 Now we enter the realms of `dplyr::mutate()` with:
 
@@ -258,6 +258,28 @@ g %>%
 #> 10          4.9         3.1          1.5         0.1 setosa 
 #> # … with 140 more rows, and 4 more variables: centered$Sepal.Length <dbl>,
 #> #   $Sepal.Width <dbl>, $Petal.Length <dbl>, $Petal.Width <dbl>
+```
+
+`madison()` packs the columns `salsa()` would have created
+
+``` r
+g %>% 
+  madison(swing(~ . - mean(.), starts_with("Sepal")))
+#> # A tibble: 150 x 6
+#>    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#>           <dbl>       <dbl>        <dbl>       <dbl> <fct>  
+#>  1          5.1         3.5          1.4         0.2 setosa 
+#>  2          4.9         3            1.4         0.2 setosa 
+#>  3          4.7         3.2          1.3         0.2 setosa 
+#>  4          4.6         3.1          1.5         0.2 setosa 
+#>  5          5           3.6          1.4         0.2 setosa 
+#>  6          5.4         3.9          1.7         0.4 setosa 
+#>  7          4.6         3.4          1.4         0.3 setosa 
+#>  8          5           3.4          1.5         0.2 setosa 
+#>  9          4.4         2.9          1.4         0.2 setosa 
+#> 10          4.9         3.1          1.5         0.1 setosa 
+#> # … with 140 more rows, and 2 more variables: data$Sepal.Length <dbl>,
+#> #   $Sepal.Width <dbl>
 ```
 
 ### bolero and mambo

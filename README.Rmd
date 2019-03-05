@@ -146,7 +146,7 @@ g %>%
   )
 ```
 
-### salsa, chacha, samba
+### salsa, chacha, samba, madison
 
 Now we enter the realms of `dplyr::mutate()` with: 
 
@@ -169,6 +169,14 @@ want the original data, you can use `samba()` instead of `salsa()`:
 g %>% 
   samba(twist(~ . - mean(.), everything(), -Species, .name = "centered"))
 ```
+
+`madison()` packs the columns `salsa()` would have created
+
+```{r}
+g %>% 
+  madison(swing(~ . - mean(.), starts_with("Sepal")))
+```
+
 
 ### bolero and mambo
 

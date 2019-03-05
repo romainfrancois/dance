@@ -29,11 +29,11 @@ polka <- function(.tbl) {
 }
 
 #' @export
-tango <- function(.tbl, ...) {
-  vec_cbind(polka(.tbl), waltz(.tbl, ...))
+tango <- function(.tbl, ..., .env = caller_env()) {
+  vec_cbind(polka(.tbl), waltz(.tbl, ..., .env = .env))
 }
 
 #' @export
-charleston <- function(.tbl, ..., .name = "data") {
-  vec_cbind(polka(.tbl), tibble(!!.name := waltz(.tbl, ...)))
+charleston <- function(.tbl, ..., .name = "data", .env = caller_env()) {
+  vec_cbind(polka(.tbl), tibble(!!.name := waltz(.tbl, ..., .env = .env)))
 }
