@@ -56,3 +56,5 @@ samba <- function(.tbl, ..., .env = caller_env()) {
 madison <- function(.tbl, ..., .name = "data", .env = caller_env()) {
   vec_cbind(chacha(.tbl), tibble(!!.name := salsa(.tbl, ..., .env = .env)))
 }
+
+
