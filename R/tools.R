@@ -46,30 +46,10 @@ map_for <- function(.ptype) {
   }
 }
 
-is_bare_vector <- function(x) {
-  is_vector(x) && !is.object(x) && is.null(attr(x, "class"))
-}
-
 globalVariables(c(".::index::.", "mapper", "name", ".", ".ptype", ".rows", "ptypes", "rows", "steps"))
 
-slicer_bare <- function(., data) {
-  expr(.subset(!!., `.::index::.`))
-}
-
-slicer_generic <- function(., data) {
-  expr(vec_slice(!!., `.::index::.`))
-}
-
-slicer <- function(., data) {
-  if (is_bare_vector(.)) {
-    slicer_bare(., data)
-  } else {
-    slicer_generic(., data)
-  }
-}
-
 tbl_slicer_args <- function(.tbl) {
-  args <- map(.tbl, slicer, data = .tbl)
+  args <- map(.tbl, ~expr((!!slicer(.x))((!!.x), `.::index::.`)))
   list2(`.::index::.` = missing_arg(), !!!args)
 }
 

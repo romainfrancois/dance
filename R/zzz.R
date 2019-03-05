@@ -9,6 +9,7 @@
 #' @importFrom tibble tibble as_tibble
 #' @importFrom magrittr and or
 #' @importFrom utils head
+#' @importFrom slicer slicer
 NULL
 
 #' @export
