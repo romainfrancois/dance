@@ -1,5 +1,5 @@
 #' @export
-mambo <- function(.fun, ..., .tbl = get_tbl(), .op = `&`, .env = caller_env()) {
+mambo <- function(.fun, ..., .tbl = get_tbl(), .op = and, .env = caller_env()) {
   vars <- vars_select(tbl_vars(.tbl), ...)
 
   c(., .fun) %<-% promote_formula(.fun, .env)
@@ -11,8 +11,8 @@ mambo <- function(.fun, ..., .tbl = get_tbl(), .op = `&`, .env = caller_env()) {
 }
 
 #' @export
-bolero <- function(.tbl, what, .env = caller_env()) {
-  c(., steps, rows) %<-% ballet(.tbl, what, .env = .env)
+bolero <- function(.tbl, ..., .op = and, .env = caller_env()) {
+  c(., steps, rows) %<-% ballet(.tbl, ..., .env = .env)
 
   check <- function(result, group_size) {
     assert_that(vec_size(result) == group_size, is.logical(result))
@@ -20,7 +20,7 @@ bolero <- function(.tbl, what, .env = caller_env()) {
   walk2(steps, rows, ~walk(.x, check, group_size = length(.y)))
 
   # the indices for each group
-  steps <- map(steps, ~which(.x[[1L]]))
+  steps <- map(steps, ~which(reduce(.x, .op)))
 
   # how to vec_slice() the data to get the result
   indices <- flatten_int(steps)
