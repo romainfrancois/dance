@@ -16,11 +16,8 @@ underneath, i.e. it leverages a lot from `vctrs` and `rlang`.
 We’ll illustrate tibble dancing with `iris` grouped by `Species`.
 
 ``` r
-library(dplyr, warn.conflicts = FALSE)
-library(tidyselect)
-g <- iris %>% group_by(Species)
-
 library(dance)
+g <- iris %>% group_by(Species)
 ```
 
 ### waltz(), polka(), tango(), charleston()
@@ -103,6 +100,8 @@ For this, we need to learn new dance moves:
 columns:
 
 ``` r
+library(tidyselect)
+
 g %>% 
   tango(swing(mean, starts_with("Petal")))
 #> # A tibble: 3 x 3

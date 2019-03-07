@@ -1,4 +1,3 @@
-
 #' @import vctrs
 #' @import rlang
 #' @import dplyr
@@ -22,3 +21,6 @@ magrittr::and
 
 #' @export
 magrittr::or
+
+#' @export
+dplyr::group_by
