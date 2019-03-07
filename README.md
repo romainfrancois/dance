@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.org/romainfrancois/dance.svg?branch=master)](https://travis-ci.org/romainfrancois/dance)
 <!-- badges: end -->
 
 Dancing 💃 with the stats, aka `tibble()` dancing 🕺. `dance` is a sort of
@@ -284,9 +286,9 @@ g %>%
 
 ### bolero and mambo
 
-`bolero()` is similar to `dplyr::filter()` but only takes one thing, as
-a formula. The formula may be made by `mambo()` if you want to apply the
-same predicate to a tidyselection of columns:
+`bolero()` is similar to `dplyr::filter()`. The formulas may be made by
+`mambo()` if you want to apply the same predicate to a tidyselection of
+columns:
 
 ``` r
 g %>% 

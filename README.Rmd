@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 # dance
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/romainfrancois/dance.svg?branch=master)](https://travis-ci.org/romainfrancois/dance)
 <!-- badges: end -->
 
 Dancing `r emo::ji("woman_dancing")` with the stats, aka `tibble()` dancing `r emo::ji("man_dancing")`. 
