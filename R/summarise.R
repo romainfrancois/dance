@@ -1,4 +1,10 @@
 
+#' waltz
+#'
+#' @param .tbl TODO
+#' @param ... TODO
+#' @param .env TODO
+#'
 #' @export
 waltz <- function(.tbl, ..., .env = caller_env()) {
   # evaluate all the formulas in each group
@@ -14,6 +20,9 @@ waltz <- function(.tbl, ..., .env = caller_env()) {
   as_tibble(results)
 }
 
+#' polka
+#'
+#' @param .tbl TODO
 #' @export
 polka <- function(.tbl) {
   groups <- head(groups(.tbl), -1L)
@@ -28,11 +37,23 @@ polka <- function(.tbl) {
   .tbl
 }
 
+#' tango
+#'
+#' @param .tbl TODO
+#' @param ... TODO
+#' @param .env TODO
+#'
 #' @export
 tango <- function(.tbl, ..., .env = caller_env()) {
   vec_cbind(polka(.tbl), waltz(.tbl, ..., .env = .env))
 }
 
+#' charleston
+#'
+#' @param .tbl TODO
+#' @param ... TODO
+#' @param .name TODO
+#' @param .env TODO
 #' @export
 charleston <- function(.tbl, ..., .name = "data", .env = caller_env()) {
   vec_cbind(polka(.tbl), tibble(!!.name := waltz(.tbl, ..., .env = .env)))

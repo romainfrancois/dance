@@ -1,4 +1,12 @@
-
+#' rumba
+#'
+#' @param .var TODO
+#' @param ... TODO
+#' @param .tbl TODO
+#' @param .name TODO
+#' @param .env TODO
+#'
+#' @export
 #' @export
 rumba <- function(.var, ..., .tbl = get_tbl(), .name = "{fun}", .env = caller_env()) {
   .var <- quo_name(enquo(.var))
@@ -12,6 +20,14 @@ rumba <- function(.var, ..., .tbl = get_tbl(), .name = "{fun}", .env = caller_en
   }))
 }
 
+#' zumba
+#'
+#' @param .var TODO
+#' @param ... TODO
+#' @param .tbl TODO
+#' @param .name TODO
+#' @param .env TODO
+#'
 #' @export
 zumba <- function(.var, ..., .tbl = get_tbl(), .name = "data", .env = caller_env()) {
   .var <- quo_name(enquo(.var))

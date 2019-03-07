@@ -1,4 +1,9 @@
-
+#' salsa
+#'
+#' @param .tbl TODO
+#' @param ... TODO
+#' @param .env TODO
+#'
 #' @export
 salsa <- function(.tbl, ..., .env = caller_env()) {
   # evaluate all the formulas in each group
@@ -17,6 +22,10 @@ salsa <- function(.tbl, ..., .env = caller_env()) {
   as_tibble(results)
 }
 
+#' chacha
+#'
+#' @param .tbl TODO
+#'
 #' @export
 chacha <- function(.tbl) {
   UseMethod("chacha")
@@ -47,11 +56,24 @@ chacha.dance_grouped_df <- function(.tbl) {
   .tbl
 }
 
+#' samba
+#'
+#' @param .tbl TODO
+#' @param ... TODO
+#' @param .env TODO
+#'
 #' @export
 samba <- function(.tbl, ..., .env = caller_env()) {
   vec_cbind(chacha(.tbl), salsa(.tbl, ..., .env = .env))
 }
 
+#' madison
+#'
+#' @param .tbl TODO
+#' @param ... TODO
+#' @param .name TODO
+#' @param .env TODO
+#'
 #' @export
 madison <- function(.tbl, ..., .name = "data", .env = caller_env()) {
   vec_cbind(chacha(.tbl), tibble(!!.name := salsa(.tbl, ..., .env = .env)))

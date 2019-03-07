@@ -1,3 +1,11 @@
+#' mambo
+#'
+#' @param .tbl TODO
+#' @param ... TODO
+#' @param .fun TODO
+#' @param .op TODO
+#' @param .env TODO
+#'
 #' @export
 mambo <- function(.fun, ..., .tbl = get_tbl(), .op = and, .env = caller_env()) {
   vars <- vars_select(tbl_vars(.tbl), ...)
@@ -10,6 +18,13 @@ mambo <- function(.fun, ..., .tbl = get_tbl(), .op = and, .env = caller_env()) {
   new_formula(NULL, predicate, env = .env)
 }
 
+#' bolero
+#'
+#' @param .tbl TODO
+#' @param ... TODO
+#' @param .op TODO
+#' @param .env TODO
+#'
 #' @export
 bolero <- function(.tbl, ..., .op = and, .env = caller_env()) {
   c(., steps, rows) %<-% ballet(.tbl, ..., .env = .env)

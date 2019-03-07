@@ -1,4 +1,12 @@
 
+#' swing
+#'
+#' @param .fun TODO
+#' @param ... TODO
+#' @param .tbl TODO
+#' @param .name TODO
+#' @param .env TODO
+#'
 #' @export
 swing <- function(.fun, ..., .tbl = get_tbl(), .name = "{var}", .env = caller_env()) {
   vars <- vars_select(tbl_vars(.tbl), ...)
@@ -9,6 +17,14 @@ swing <- function(.fun, ..., .tbl = get_tbl(), .name = "{var}", .env = caller_en
   splice(map(vars, ~new_formula(.ptype, expr((!!.fun)(!!sym(.))))))
 }
 
+#' twist
+#'
+#' @param .fun TODO
+#' @param ... TODO
+#' @param .tbl TODO
+#' @param .name TODO
+#' @param .env TODO
+#'
 #' @export
 twist <- function(.fun, ..., .tbl = get_tbl(), .name = "data", .env = caller_env()) {
   vars <- vars_select(tbl_vars(.tbl), ...)

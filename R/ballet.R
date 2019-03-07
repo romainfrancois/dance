@@ -1,3 +1,9 @@
+#' ballet
+#'
+#' @param .tbl TODO
+#' @param ... TODO
+#' @param .env TODO
+#'
 #' @export
 ballet <- function(.tbl, ..., .env = caller_env()) {
   set_tbl(.tbl)
