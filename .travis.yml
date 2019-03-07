@@ -7,3 +7,8 @@ jobs:
   include:
   - r: devel
   - r: release
+
+env:
+  global:
+  - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
+  - _R_CHECK_SYSTEM_CLOCK_=FALSE
