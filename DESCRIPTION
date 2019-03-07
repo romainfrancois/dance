@@ -18,8 +18,5 @@ Imports:
     glue,
     tibble,
     zeallot,
-    utils,
-    slicer
+    utils
 RoxygenNote: 6.1.1
-Remotes:
-    romainfrancois/slicer

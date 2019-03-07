@@ -48,6 +48,18 @@ map_for <- function(.ptype) {
 
 globalVariables(c(".::index::.", "mapper", "name", ".", ".ptype", ".rows", "ptypes", "rows", "steps"))
 
+is_bare_vector <- function(x) {
+  is_vector(x) && !is.object(x) && is.null(attr(x, "class"))
+}
+
+slicer <- function(.) {
+  if (is_bare_vector(.)) {
+    .subset
+  } else {
+    vec_slice
+  }
+}
+
 tbl_slicer_args <- function(.tbl) {
   args <- map(.tbl, ~expr((!!slicer(.x))((!!.x), `.::index::.`)))
   list2(`.::index::.` = missing_arg(), !!!args)
