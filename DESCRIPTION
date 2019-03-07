@@ -20,3 +20,5 @@ Imports:
     zeallot (>= 0.1.0),
     utils
 RoxygenNote: 6.1.1
+Suggests: 
+    testthat
