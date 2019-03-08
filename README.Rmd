@@ -26,9 +26,9 @@ underneath, i.e. it leverages a lot from `vctrs` and `rlang`.
 
 You can install the development version from GitHub.
 
-```{r}
-# install.packages("devtools")
-devtools::install_github("romainfrancois/dance")
+```{r, eval=FALSE}
+# install.packages("pak")
+pak::pkg_install("romainfrancois/dance")
 ```
 
 # Usage
