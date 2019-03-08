@@ -96,3 +96,33 @@ promote_formula <- function(.fun, .env) {
   list(.ptype, .fun)
 }
 
+as_tibble_splice <- function(x, ...) {
+  if (is.null(names(x))) {
+    names(x) <- rep("", length(x))
+  }
+  needs_splice <- names(x) == "" & map_lgl(x, is.data.frame)
+
+  n <- sum(map2_int(x, needs_splice, ~ {
+    if(.y) length(.x) else 1L
+  }))
+
+  out_names <- flatten_chr(map2(x, names(x), ~{
+    if(.y == "") names(.x) else .y
+  }))
+
+  out <- rep(list(NULL), n)
+  k <- 1L
+  for(i in seq_along(x)) {
+    if (needs_splice[i]) {
+      tbl <- x[[i]]
+      for(j in seq_len(ncol(tbl))) {
+        out[[k]] <- tbl[[j]]
+        k <- k + 1
+      }
+    } else {
+      out[[k]] <- x[[i]]
+      k <- k + 1
+    }
+  }
+  as_tibble(set_names(out, out_names), ...)
+}

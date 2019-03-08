@@ -19,7 +19,7 @@ salsa <- function(.tbl, ..., .env = caller_env()) {
   results <- map2(ptypes, seq_along(ptypes), ~vec_c(!!!map(steps, .y), .ptype = .x))
 
   # structure results as a tibble
-  as_tibble(results)
+  as_tibble_splice(results)
 }
 
 #' chacha

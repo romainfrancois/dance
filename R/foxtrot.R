@@ -9,7 +9,7 @@ foxtrot <- function(.tbl, ..., .env = caller_env()) {
   # evaluate all the formulas in each group
   c(., steps, .) %<-% ballet(.tbl, ..., .env = .env)
 
-  map(steps, as_tibble)
+  map(steps, ~as_tibble_splice(.))
 }
 
 #' bachata
