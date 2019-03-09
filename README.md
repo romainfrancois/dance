@@ -13,6 +13,17 @@ Dancing 💃 with the stats, aka `tibble()` dancing 🕺. `dance` is a sort of
 reinvention of `dplyr` classic verbs, with a more modern stack
 underneath, i.e. it leverages a lot from `vctrs` and `rlang`.
 
+# Installation
+
+You can install the development version from GitHub.
+
+``` r
+# install.packages("pak")
+pak::pkg_install("romainfrancois/dance")
+```
+
+# Usage
+
 We’ll illustrate tibble dancing with `iris` grouped by `Species`.
 
 ``` r
