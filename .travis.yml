@@ -12,3 +12,18 @@ env:
   global:
   - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
   - _R_CHECK_SYSTEM_CLOCK_=FALSE
+
+- r: release
+    env:
+      - DEVEL_PACKAGES=true
+    r_github_packages:
+      - r-lib/vctrs
+      - r-lib/rlang
+      - tidyverse/magrittr
+      - tidyverse/dplyr
+      - tidyverse/purrr
+      - hadley/assertthat
+      - tidyverse/tidyselect
+      - tidyverse/glue
+      - tidyverse/tibble
+      - r-lib/zeallot
