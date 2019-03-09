@@ -17,7 +17,13 @@ env:
     env:
       - DEVEL_PACKAGES=true
     r_github_packages:
-      - RcppCore/Rcpp
+      - r-lib/vctrs
       - r-lib/rlang
-      - tidyverse/tibble
+      - tidyverse/magrittr
+      - tidyverse/dplyr
+      - tidyverse/purrr
+      - hadley/assertthat
       - tidyverse/tidyselect
+      - tidyverse/glue
+      - tidyverse/tibble
+      - r-lib/zeallot
