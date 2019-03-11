@@ -14,7 +14,7 @@ waltz <- function(.tbl, ..., .env = caller_env()) {
   walk(steps, ~walk(.x, ~assert_that(vec_size(.x) == 1L)))
 
   # transpose, combine
-  results <- map2(ptypes, seq_along(ptypes), ~vec_c(!!!map(steps, .y), .ptype = .x))
+  results <- map2(transpose(steps), ptypes, ~vec_c(!!!.x, .ptype = .y))
 
   as_tibble_splice(results)
 }
