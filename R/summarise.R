@@ -8,7 +8,7 @@
 #' @export
 waltz <- function(.tbl, ..., .env = caller_env()) {
   # evaluate all the formulas in each group
-  c(ptypes, steps, .) %<-% ballet(.tbl, ..., .env = .env)
+  c(ptypes, steps) %<-% ballet(.tbl, ..., .env = .env)
 
   # check all results are length 1
   walk(steps, ~walk(.x, ~assert_that(vec_size(.x) == 1L)))

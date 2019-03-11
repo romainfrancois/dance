@@ -27,11 +27,12 @@ mambo <- function(.fun, ..., .tbl = get_tbl(), .op = and, .env = caller_env()) {
 #'
 #' @export
 bolero <- function(.tbl, ..., .op = and, .env = caller_env()) {
-  c(., steps, rows) %<-% ballet(.tbl, ..., .env = .env)
+  c(., steps) %<-% ballet(.tbl, ..., .env = .env)
 
   check <- function(result, group_size) {
     assert_that(vec_size(result) == group_size, is.logical(result))
   }
+  rows <- group_rows(.tbl)
   walk2(steps, rows, ~walk(.x, check, group_size = length(.y)))
 
   # the indices for each group
