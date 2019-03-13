@@ -7,12 +7,13 @@
 #' @export
 salsa <- function(.tbl, ..., .env = caller_env()) {
   # evaluate all the formulas in each group
-  c(ptypes, steps, rows) %<-% ballet(.tbl, ..., .env = .env)
+  c(ptypes, steps) %<-% ballet(.tbl, ..., .env = .env)
 
   # check all results are length 1
   check_size <- function(result, group_size) {
     assert_that(vec_size(result) == group_size)
   }
+  rows <- group_rows(.tbl)
   walk2(steps, rows, ~walk(.x, check_size, group_size = length(.y)))
 
   # transpose and combine

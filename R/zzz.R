@@ -24,3 +24,6 @@ magrittr::or
 
 #' @export
 dplyr::group_by
+
+#' @export
+zeallot::`%<-%`

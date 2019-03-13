@@ -8,6 +8,7 @@
 \alias{and}
 \alias{or}
 \alias{group_by}
+\alias{\%<-\%}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -20,5 +21,7 @@ below to see their documentation.
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}, \code{\link[magrittr]{and}}, \code{\link[magrittr]{or}}}
 
   \item{tibble}{\code{\link[tibble]{tibble}}}
+
+  \item{zeallot}{\code{\link[zeallot]{\%<-\%}}}
 }}
 
