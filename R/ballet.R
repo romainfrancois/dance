@@ -55,5 +55,5 @@ ballet <- function(.tbl, ..., .env = caller_env()) {
   moves <- choreography(.tbl, ..., .env = .env)
   steps <- map(rows, moves)
 
-  list(ptypes = ptypes, steps = steps, rows = rows)
+  list(ptypes = ptypes, steps = steps)
 }
