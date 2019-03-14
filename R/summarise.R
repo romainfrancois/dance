@@ -15,15 +15,15 @@
 #'    i.e. if `.tbl` was grouped by `x` and `y` the result of `polka()`
 #'    contains columns `x` and `y` and is only grouped by `x`
 #'
-#' - `waltz()` runs the [ballet()] defined `...` and makes
-#'    sure each result is of [vec_size()] 1. The result tibble of `waltz()`
+#' - `waltz()` runs the [ballet()] defined by `...` and makes
+#'    sure each result is of [vctrs::vec_size()] 1. The result tibble of `waltz()`
 #'    does not contain the grouping variables.
 #'
 #' - `tango()` is the closest to [dplyr::summarise()], it column binds
 #'   the result of `polka()` and `waltz()` with [vctrs::vec_cbind()].
 #'
 #' - `charleston()` is similar to `tango()` but the results are packed
-#'   instead of being bind. The name of the created package column is
+#'   instead of being bind. The name of the created packed column is
 #'   controled by the `.name` argument.
 #'
 #' @examples
