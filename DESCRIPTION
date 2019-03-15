@@ -21,5 +21,6 @@ Imports:
     utils
 RoxygenNote: 6.1.1
 Suggests: 
-    testthat
+    testthat, 
+    broom
 Roxygen: list(markdown = TRUE)
