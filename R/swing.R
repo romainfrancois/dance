@@ -20,6 +20,8 @@
 #'   - `{idx}` to refer to the index of the current variable
 #' The default value "{var}" for `.name` simply uses the name of the selected variable
 #'
+#' @seealso [rumba()] and [zumba()] to apply several functions to the same column
+#'
 #' @examples
 #' g <- iris %>% group_by(Species)
 #'

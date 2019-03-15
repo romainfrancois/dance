@@ -94,3 +94,6 @@ g \%>\%
   )
 
 }
+\seealso{
+\code{\link[=rumba]{rumba()}} and \code{\link[=zumba]{zumba()}} to apply several functions to the same column
+}
