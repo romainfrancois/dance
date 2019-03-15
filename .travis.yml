@@ -7,13 +7,12 @@ jobs:
   include:
   - r: devel
   - r: release
-
-env:
-  global:
-  - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
-  - _R_CHECK_SYSTEM_CLOCK_=FALSE
-
-- r: release
+    before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github()'
+      skip_cleanup: true
+  - r: release
     env:
       - DEVEL_PACKAGES=true
     r_github_packages:
@@ -27,3 +26,8 @@ env:
       - tidyverse/glue
       - tidyverse/tibble
       - r-lib/zeallot
+env:
+  global:
+  - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
+  - _R_CHECK_SYSTEM_CLOCK_=FALSE
+
