@@ -28,13 +28,13 @@ The four functions play a separate role around the idea of
 \item \code{polka()} peels off one level of grouping from the grouping variable,
 i.e. if \code{.tbl} was grouped by \code{x} and \code{y} the result of \code{polka()}
 contains columns \code{x} and \code{y} and is only grouped by \code{x}
-\item \code{waltz()} runs the \code{\link[=ballet]{ballet()}} defined \code{...} and makes
-sure each result is of \code{\link[=vec_size]{vec_size()}} 1. The result tibble of \code{waltz()}
+\item \code{waltz()} runs the \code{\link[=ballet]{ballet()}} defined by \code{...} and makes
+sure each result is of \code{\link[vctrs:vec_size]{vctrs::vec_size()}} 1. The result tibble of \code{waltz()}
 does not contain the grouping variables.
 \item \code{tango()} is the closest to \code{\link[dplyr:summarise]{dplyr::summarise()}}, it column binds
 the result of \code{polka()} and \code{waltz()} with \code{\link[vctrs:vec_cbind]{vctrs::vec_cbind()}}.
 \item \code{charleston()} is similar to \code{tango()} but the results are packed
-instead of being bind. The name of the created package column is
+instead of being bind. The name of the created packed column is
 controled by the \code{.name} argument.
 }}
 }

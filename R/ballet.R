@@ -23,7 +23,7 @@
 #' # most dance functions get the result of ballet()
 #' # and then process it
 #' c(ptypes, steps) %<-%
-#'   ballet(
+#'   ballet(data,
 #'     Sepal.Length = ~mean(Sepal.Length),
 #'     Sepal.Width  = ~mean(Sepal.Width)
 #'   )
