@@ -9,6 +9,15 @@
 \alias{or}
 \alias{group_by}
 \alias{\%<-\%}
+\alias{starts_with}
+\alias{ends_with}
+\alias{contains}
+\alias{matches}
+\alias{num_range}
+\alias{one_of}
+\alias{everything}
+\alias{last_col}
+\alias{group_cols}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -16,11 +25,13 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{group_by}}}
+  \item{dplyr}{\code{\link[dplyr]{group_by}}, \code{\link[dplyr]{group_cols}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}, \code{\link[magrittr]{and}}, \code{\link[magrittr]{or}}}
 
   \item{tibble}{\code{\link[tibble]{tibble}}}
+
+  \item{tidyselect}{\code{\link[tidyselect]{starts_with}}, \code{\link[tidyselect]{ends_with}}, \code{\link[tidyselect]{contains}}, \code{\link[tidyselect]{matches}}, \code{\link[tidyselect]{num_range}}, \code{\link[tidyselect]{one_of}}, \code{\link[tidyselect]{everything}}, \code{\link[tidyselect]{last_col}}}
 
   \item{zeallot}{\code{\link[zeallot]{\%<-\%}}}
 }}

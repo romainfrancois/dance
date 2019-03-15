@@ -27,3 +27,32 @@ dplyr::group_by
 
 #' @export
 zeallot::`%<-%`
+
+#' @export
+tidyselect::starts_with
+
+#' @export
+tidyselect::ends_with
+
+#' @export
+tidyselect::contains
+
+#' @export
+tidyselect::matches
+
+#' @export
+tidyselect::num_range
+
+#' @export
+tidyselect::one_of
+
+#' @export
+tidyselect::everything
+
+#' @export
+tidyselect::last_col
+
+#' @export
+dplyr::group_cols
+
+

@@ -103,7 +103,7 @@ g %>%
   tango(swing(mean, starts_with("Petal")))
 
 g %>% 
-  tango(twist(mean, starts_with("Petal")))
+  tango(data = twist(mean, starts_with("Petal")))
 ```
 
 They differ in the type of column is created and how to name them: 
@@ -120,14 +120,13 @@ g %>%
   )
 ```
 
- - `twist()` instead creates a single data frame column, and `.name` control its 
- name: 
+ - `twist()` instead creates a single data frame column. 
  
 ```{r}
 g %>% 
   tango(
-    twist(mean, starts_with("Petal"), .name = "mean"), 
-    twist(median, starts_with("Petal"), .name = "median"), 
+    mean   = twist(mean, starts_with("Petal")), 
+    median = twist(median, starts_with("Petal")), 
   )
 ```
 
@@ -141,7 +140,7 @@ You can combine `swing()` and `twist()` in the same `tango()` or `waltz()`:
 g %>% 
   tango(
     swing(mean, starts_with("Petal"), .name = "mean_{var}"), 
-    twist(median, contains("."), .name = "median")
+    median = twist(median, contains("."))
   )
 ```
 
@@ -179,7 +178,7 @@ want the original data, you can use `samba()` instead of `salsa()`:
 
 ```{r}
 g %>% 
-  samba(twist(~ . - mean(.), everything(), -Species, .name = "centered"))
+  samba(centered = twist(~ . - mean(.), everything(), -Species))
 ```
 
 `madison()` packs the columns `salsa()` would have created

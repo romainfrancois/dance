@@ -2,22 +2,95 @@
 % Please edit documentation in R/swing.R
 \name{swing}
 \alias{swing}
-\title{swing}
+\alias{twist}
+\title{Generate formulas to apply a single function to multiple columns}
 \usage{
 swing(.fun, ..., .tbl = get_tbl(), .name = "{var}",
   .env = caller_env())
+
+twist(.fun, ..., .tbl = get_tbl(), .name = "{var}",
+  .env = caller_env())
 }
 \arguments{
-\item{.fun}{TODO}
+\item{.fun}{A function or a formula that uses \code{.} or
+\code{.x} to refer to each of the selected column}
 
-\item{...}{TODO}
+\item{...}{tidy selection of columns, see \code{\link[tidyselect:vars_select]{tidyselect::vars_select()}} for details}
 
-\item{.tbl}{TODO}
+\item{.tbl, .env}{data frame \code{...} selects columns from, this is
+automatically set by the \code{\link[=choreography]{choreography()}}, you should rarely need to use these arguments}
 
-\item{.name}{TODO}
-
-\item{.env}{TODO}
+\item{.name}{\code{\link[glue:glue]{glue::glue()}} model to name the outputs. The model may use :
+\itemize{
+\item \code{{var}} to refer to the name of the current selected variable
+\item \code{{idx}} to refer to the index of the current variable
+The default value "{var}" for \code{.name} simply uses the name of the selected variable
+}}
 }
 \description{
-swing
+\itemize{
+\item \code{swing()} : returns a spliced list of formulas, suitable for the
+\code{...} argument of \code{\link[=choreography]{choreography()}}, as well as all the dances that
+use a \code{\link[=choreography]{choreography()}}
+}
+}
+\details{
+\itemize{
+\item \code{twist()} : returns a single formula that makes a tibble column
+}
+
+These functions are generally used within other dances, such as
+\code{\link[=tango]{tango()}}, \code{\link[=samba]{samba()}} or \code{\link[=jive]{jive()}}
+}
+\examples{
+g <- iris \%>\% group_by(Species)
+
+##------- tango()
+
+# Apply mean to all columns that start with Sepal
+# and choose how the result columns are called
+g \%>\%
+  tango(
+    swing(mean, starts_with("Sepal"), .name = "mean_{var}")
+  )
+
+# if you want to use extra arguments of `.fun` you can embed
+# them with the lambda syntax
+g \%>\%
+  tango(
+    swing(~mean(., trim = .2), starts_with("Sepal"), .name = "mean_{var}")
+  )
+
+# use twist() to instead create a single packed column
+g \%>\%
+  tango(
+    mean = twist(mean, starts_with("Sepal"))
+  )
+# but in fact, if you don't name the formula made by twist()
+# the columns are auto spliced
+g \%>\%
+  tango(
+    twist(mean, starts_with("Sepal"))
+  )
+
+##------- samba()
+
+g \%>\%
+  samba(
+    swing(~. - mean(.), starts_with("Sepal"), .name = "centered_{var}")
+  )
+
+g \%>\%
+  samba(
+    centered = twist(~. - mean(.), starts_with("Sepal"), .name = "centered_{var}")
+  )
+
+##------- jive()
+
+g \%>\%
+  jive(
+    q = ~ c("25\%", "50\%", "75\%"),
+    swing(~quantile(., c(0.25, 0.5, 0.75)), contains("."))
+  )
+
 }
