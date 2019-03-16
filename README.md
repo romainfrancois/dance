@@ -5,11 +5,13 @@
 
 <!-- badges: start -->
 
+[![Lifecycle
+Status](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/)
 [![Travis build
 status](https://travis-ci.org/romainfrancois/dance.svg?branch=master)](https://travis-ci.org/romainfrancois/dance)
 <!-- badges: end -->
 
-![](https://media.giphy.com/media/GFBME4lzPVwxW/giphy.gif)
+![](https://media.giphy.com/media/mnLGTXoWVzAfm/giphy.gif)
 
 Dancing 💃 with the stats, aka `tibble()` dancing 🕺. `dance` is a sort of
 reinvention of `dplyr` classic verbs, with a more modern stack
