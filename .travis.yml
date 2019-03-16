@@ -9,7 +9,9 @@ jobs:
   include:
   - r: devel
   - r: release
-    before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+    before_cache:
+    - Rscript -e 'remotes::install_cran("pkgdown")'
+    - Rscript -e 'remotes::install_github("hadley/emo")'
     deploy:
       provider: script
       script: Rscript -e 'pkgdown::deploy_site_github()'
