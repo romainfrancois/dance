@@ -87,12 +87,7 @@ swing <- function(.fun, ..., .tbl = get_tbl(), .name = "{var}", .env = caller_en
 #' @rdname swing
 #' @export
 twist <- function(.fun, ..., .tbl = get_tbl(), .name = "{var}", .env = caller_env()) {
-  vars <- vars_select(tbl_vars(.tbl), ...)
-  names(vars) <- glue(.name, var = names(vars), idx = seq_along(vars))
-  c(.ptype, .fun) %<-% promote_formula(.fun, .env)
-
-  expressions <- map(vars, ~ expr((!!.fun)((!!sym(.)))))
-
-  rhs <- expr(tibble(!!!expressions))
+  expressions <- swing(.fun, ..., .tbl = .tbl, .name = .name, .env = .env)
+  rhs <- expr(tibble(!!!map(expressions, f_fhs)))
   new_formula(NULL, rhs, env = .env)
 }
