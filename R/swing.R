@@ -88,6 +88,6 @@ swing <- function(.fun, ..., .tbl = get_tbl(), .name = "{var}", .env = caller_en
 #' @export
 twist <- function(.fun, ..., .tbl = get_tbl(), .name = "{var}", .env = caller_env()) {
   expressions <- swing(.fun, ..., .tbl = .tbl, .name = .name, .env = .env)
-  rhs <- expr(tibble(!!!map(expressions, f_fhs)))
+  rhs <- expr(tibble(!!!map(expressions, f_rhs)))
   new_formula(NULL, rhs, env = .env)
 }
