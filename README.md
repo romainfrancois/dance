@@ -1,13 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dance
+# dance <img src="man/figures/logo.png" align="right" />
 
 <!-- badges: start -->
 
 [![Travis build
 status](https://travis-ci.org/romainfrancois/dance.svg?branch=master)](https://travis-ci.org/romainfrancois/dance)
 <!-- badges: end -->
+
+![](https://media.giphy.com/media/GFBME4lzPVwxW/giphy.gif)
 
 Dancing 💃 with the stats, aka `tibble()` dancing 🕺. `dance` is a sort of
 reinvention of `dplyr` classic verbs, with a more modern stack
@@ -123,7 +125,7 @@ g %>%
 #> 3 virginica          5.55       2.03
 
 g %>% 
-  tango(twist(mean, starts_with("Petal")))
+  tango(data = twist(mean, starts_with("Petal")))
 #> # A tibble: 3 x 2
 #>   Species    data$Petal.Length $Petal.Width
 #>   <fct>                  <dbl>        <dbl>
@@ -155,16 +157,15 @@ g %>%
 #> # … with 1 more variable: median_Petal.Width <dbl>
 ```
 
-  - `twist()` instead creates a single data frame column, and `.name`
-    control its name:
+  - `twist()` instead creates a single data frame column.
 
 <!-- end list -->
 
 ``` r
 g %>% 
   tango(
-    twist(mean, starts_with("Petal"), .name = "mean"), 
-    twist(median, starts_with("Petal"), .name = "median"), 
+    mean   = twist(mean, starts_with("Petal")), 
+    median = twist(median, starts_with("Petal")), 
   )
 #> # A tibble: 3 x 3
 #>   Species    mean$Petal.Length $Petal.Width median$Petal.Leng… $Petal.Width
@@ -185,7 +186,7 @@ You can combine `swing()` and `twist()` in the same `tango()` or
 g %>% 
   tango(
     swing(mean, starts_with("Petal"), .name = "mean_{var}"), 
-    twist(median, contains("."), .name = "median")
+    median = twist(median, contains("."))
   )
 #> # A tibble: 3 x 4
 #>   Species mean_Petal.Leng… mean_Petal.Width median$Sepal.Le… $Sepal.Width
@@ -206,7 +207,7 @@ data frame column.
 g %>% 
   tango(
     rumba(Sepal.Width, mean = mean, median = median, .name = "Sepal_{fun}"), 
-    zumba(Petal.Width, mean = mean, median = median, .name = "Petal")
+    Petal = zumba(Petal.Width, mean = mean, median = median)
   )
 #> # A tibble: 3 x 4
 #>   Species    Sepal_mean Sepal_median Petal$mean $median
@@ -254,7 +255,7 @@ you want the original data, you can use `samba()` instead of `salsa()`:
 
 ``` r
 g %>% 
-  samba(twist(~ . - mean(.), everything(), -Species, .name = "centered"))
+  samba(centered = twist(~ . - mean(.), everything(), -Species))
 #> # A tibble: 150 x 6
 #>    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #>           <dbl>       <dbl>        <dbl>       <dbl> <fct>  
