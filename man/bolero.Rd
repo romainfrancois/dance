@@ -2,19 +2,25 @@
 % Please edit documentation in R/filter.R
 \name{bolero}
 \alias{bolero}
-\title{bolero}
+\title{Filtering rows}
 \usage{
 bolero(.tbl, ..., .op = and, .env = caller_env())
 }
 \arguments{
-\item{.tbl}{TODO}
+\item{.tbl}{data frame, most likely grouped}
 
-\item{...}{TODO}
+\item{..., .env}{formulas and caller environment}
 
-\item{.op}{TODO}
-
-\item{.env}{TODO}
+\item{.op}{binary operator to \code{\link[=reduce]{reduce()}} results when there are multiple \code{...}}
+}
+\value{
+A tibble with matching rows
 }
 \description{
-bolero
+Filtering rows
+}
+\examples{
+iris \%>\%
+  bolero(~ Sepal.Length > 5.5, ~Sepal.Width >= 4)
+
 }

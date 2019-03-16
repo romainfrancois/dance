@@ -35,6 +35,7 @@ Applies the \code{\link[=ballet]{ballet()}} with no restriction on the \code{\li
 \examples{
 g <- group_by(iris, Species)
 
+\dontrun{
 if (requireNamespace("broom", quietly = TRUE)) {
   ### foxtrot() to return a list of tibbles
 
@@ -84,5 +85,6 @@ if (requireNamespace("broom", quietly = TRUE)) {
     jive(
       model = ~ broom::tidy(lm(Petal.Length ~ Sepal.Length))
     )
+}
 }
 }

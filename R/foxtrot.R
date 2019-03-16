@@ -36,6 +36,7 @@ bachata <- function(.tbl, ..., .name = "data", .env = caller_env()) {
 #' @examples
 #' g <- group_by(iris, Species)
 #'
+#' \dontrun{
 #' if (requireNamespace("broom", quietly = TRUE)) {
 #'   ### foxtrot() to return a list of tibbles
 #'
@@ -85,6 +86,7 @@ bachata <- function(.tbl, ..., .name = "data", .env = caller_env()) {
 #'     jive(
 #'       model = ~ broom::tidy(lm(Petal.Length ~ Sepal.Length))
 #'     )
+#' }
 #' }
 #' @export
 jive <- function(.tbl, ..., .env = caller_env()) {

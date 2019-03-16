@@ -2,21 +2,28 @@
 % Please edit documentation in R/filter.R
 \name{mambo}
 \alias{mambo}
-\title{mambo}
+\title{Apply same predicate to multiple variables, and reduce}
 \usage{
 mambo(.fun, ..., .tbl = get_tbl(), .op = and, .env = caller_env())
 }
 \arguments{
-\item{.fun}{TODO}
+\item{.fun}{A function or a formula that uses \code{.}}
 
-\item{...}{TODO}
+\item{...}{Tidy selection, see \code{\link[tidyselect:vars_select]{tidyselect::vars_select()}}}
 
-\item{.tbl}{TODO}
+\item{.tbl, .env}{Data frame to select columns from, and parent environment,
+you most likely don't need to supply those arguments}
 
-\item{.op}{TODO}
-
-\item{.env}{TODO}
+\item{.op}{binary operator to \code{\link[purrr:reduce]{purrr::reduce()}}}
+}
+\value{
+a single formula
 }
 \description{
-mambo
+Apply same predicate to multiple variables, and reduce
+}
+\examples{
+iris \%>\%
+  bolero(mambo(~. > 4, starts_with("Sepal")))
+
 }
