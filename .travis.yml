@@ -2,6 +2,8 @@
 
 language: R
 cache: packages
+latex: false
+fortran: false
 
 jobs:
   include:
