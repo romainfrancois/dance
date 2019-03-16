@@ -2,22 +2,58 @@
 % Please edit documentation in R/rumba.R
 \name{rumba}
 \alias{rumba}
-\title{rumba}
+\alias{zumba}
+\title{Apply several functions to the same column}
 \usage{
-rumba(.var, ..., .tbl = get_tbl(), .name = "{fun}",
-  .env = caller_env())
+rumba(.var, ..., .tbl = get_tbl(), .name = NULL, .env = caller_env())
+
+zumba(.var, ..., .tbl = get_tbl(), .name = NULL, .env = caller_env())
 }
 \arguments{
-\item{.var}{TODO}
+\item{.var}{A variable specified as in \code{\link[dplyr:pull]{dplyr::pull()}}}
 
-\item{...}{TODO}
+\item{...}{list of functions or formulas using \code{.} to refer to the column}
 
-\item{.tbl}{TODO}
+\item{.tbl, .env}{data frame to get columns from and caller environment. Most of the
+time, you don't need to set these}
 
-\item{.name}{TODO}
-
-\item{.env}{TODO}
+\item{.name}{\code{\link[glue:glue]{glue::glue()}} model to name the created columns. The model can use :
+\itemize{
+\item \code{{fun}} to refer to the function name
+\item \code{{idx}} to refer to the index of the function with the given list
+\item \code{{var}} to refer to the selected name
+The default uses \code{"{fun}"} is the \code{...} list is named, and \code{"fn{idx}"} otherwise
+}}
+}
+\value{
+\itemize{
+\item \code{rumba()} returns a spliced list of formulas suitable for the \code{...} of a
+\code{\link[=choreography]{choreography()}} based dance, e.g. \code{\link[=tango]{tango()}}, \code{\link[=samba]{samba()}}, \code{\link[=jive]{jive()}}
+\item \code{zumba()} returns a single formula that packs the results
+}
 }
 \description{
-rumba
+Apply several functions to the same column
+}
+\examples{
+g <- group_by(iris, Species)
+
+# ---- tango()
+g \%>\%
+  tango(rumba(Sepal.Length, mean = mean, median = median))
+
+# select the first column, control the result names
+# with the glue() model
+g \%>\%
+  tango(rumba(1, mean = mean, median = median, .name = "{var}_{fun}"))
+
+g \%>\%
+  tango(Sepal.Width = zumba(Sepal.Width, mean = mean, median = median))
+
+# ---- jive()
+g \%>\%
+  jive(
+    rumba(Sepal.Width, five = fivenum, quantile = quantile)
+  )
+
 }

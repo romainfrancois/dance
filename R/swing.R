@@ -1,5 +1,5 @@
 
-#' Generate formulas to apply a single function to multiple columns
+#' Apply a single function to multiple columns
 #'
 #' - `swing()` : returns a spliced list of formulas, suitable for the
 #'   `...` argument of [choreography()], as well as all the dances that

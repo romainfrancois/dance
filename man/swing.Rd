@@ -3,7 +3,7 @@
 \name{swing}
 \alias{swing}
 \alias{twist}
-\title{Generate formulas to apply a single function to multiple columns}
+\title{Apply a single function to multiple columns}
 \usage{
 swing(.fun, ..., .tbl = get_tbl(), .name = "{var}",
   .env = caller_env())
