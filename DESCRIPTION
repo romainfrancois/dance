@@ -1,7 +1,10 @@
 Package: dance
 Title: Tibble Dancing
 Version: 0.0.0.9000
-Authors@R: person("Romain", "François", email = "romain@purrple.cat", role = c("aut", "cre"))
+Authors@R: c(
+        person("Romain", "François", email = "romain@purrple.cat", role = c("aut", "cre")), 
+        person("Alix", "François", role = "art")
+    )
 Description: Tibble dancing. 
 Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
