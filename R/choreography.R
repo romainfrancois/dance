@@ -41,6 +41,26 @@ choreography <- function(.tbl, ..., .env = caller_env()) {
 
 #' @export
 print.choreography <- function(x, ...) {
-  expr_print(unclass(x))
+  body <- body(x)
+
+  fs <- formals(x)[-1]
+  funs <- map_chr(fs, ~{
+    # now it's either .subset or vctrs::vec_slice
+    res <- if(identical(.x[[1L]], .subset)) {
+      "<.subset>"
+    } else {
+      "<vctrs::vec_slice>"
+    }
+    green(res)
+  })
+  index <- red("`.::index::.`")
+  txt <- glue(
+    "function({index},\n    ",
+    glue_collapse(glue("{var} = {fun}(<{data}{var}>, {index})", fun = funs, var = silver(names(funs)), data = silver(".tbl$")), sep = ",\n    "),
+    "\n){{\n    ",
+    glue_collapse(expr_deparse(body(x)), sep = "    \n"),
+    "\n}}\n"
+  )
+  writeLines(txt)
   invisible(x)
 }
