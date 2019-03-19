@@ -111,13 +111,15 @@ chacha.dance_grouped_df <- function(.tbl) {
 #' @rdname samba
 #' @export
 samba <- function(.tbl, ..., .env = caller_env()) {
-  vec_cbind(chacha(.tbl), salsa(.tbl, ..., .env = .env))
+  .tbl <- chacha(.tbl)
+  vec_cbind(.tbl, salsa(.tbl, ..., .env = .env))
 }
 
 #' @rdname samba
 #' @export
 madison <- function(.tbl, ..., .name = "data", .env = caller_env()) {
-  vec_cbind(chacha(.tbl), tibble(!!.name := salsa(.tbl, ..., .env = .env)))
+  .tbl <- chacha(.tbl)
+  vec_cbind(.tbl, tibble(!!.name := salsa(.tbl, ..., .env = .env)))
 }
 
 
