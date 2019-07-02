@@ -88,19 +88,21 @@ chacha.data.frame <- function(.tbl) {
   .tbl
 }
 
-#' @export
-chacha.grouped_df <- function(.tbl) {
-  rows <- group_rows(.tbl)
-
-  sizes <- lengths(rows)
+.chacha_grouped_df <- function(.tbl, .rows) {
+  sizes <- lengths(.rows)
   starts <- 1L + c(0L, cumsum(head(sizes, -1L)))
-  ends   <- cumsum(head(sizes))
+  ends   <- cumsum(sizes)
 
   new_grouped_df(
-    vec_slice(.tbl, flatten_int(rows)),
+    vec_slice(.tbl, flatten_int(.rows)),
     vec_cbind(group_keys(.tbl), tibble(.rows := map2(starts, ends, seq2))),
     class = "dance_grouped_df"
   )
+}
+
+#' @export
+chacha.grouped_df <- function(.tbl) {
+  .chaha_grouped_df(.tbl, group_rows(.tbl))
 }
 
 #' @export
