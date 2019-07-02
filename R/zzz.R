@@ -9,6 +9,8 @@
 #' @importFrom magrittr and or
 #' @importFrom utils head
 #' @importFrom crayon red green silver
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib dance, .registration = TRUE
 NULL
 
 #' @export

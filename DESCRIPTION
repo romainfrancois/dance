@@ -22,9 +22,13 @@ Imports:
     tibble (>= 2.0.1),
     zeallot (>= 0.1.0),
     utils,
-    crayon
+    crayon,
+    Rcpp
 RoxygenNote: 6.1.1
 Suggests: 
     testthat, 
     broom
 Roxygen: list(markdown = TRUE)
+SystemRequirements: C++11
+LinkingTo: 
+    Rcpp

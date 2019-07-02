@@ -35,20 +35,22 @@ mambo <- function(.fun, ..., .tbl = get_tbl(), .op = and, .env = caller_env()) {
 #'
 #' @export
 bolero <- function(.tbl, ..., .op = and, .env = caller_env()) {
-  c(., steps) %<-% ballet(.tbl, ..., .env = .env)
-
-  check <- function(result, group_size) {
-    assert_that(vec_size(result) == group_size, is.logical(result))
-  }
+  c(ptypes, steps) %<-% ballet(.tbl, ..., .env = .env)
   rows <- group_rows(.tbl)
-  walk2(steps, rows, ~walk(.x, check, group_size = length(.y)))
+
+  bolero_check_results(steps, rows, length(ptypes))
 
   # the indices for each group
-  steps <- map(steps, ~which(reduce(.x, .op)))
+  c(indices, new_rows) %<-% bolero_lgl_steps_to_indices(steps, length(ptypes), rows)
+  tbl_slice <- vec_slice(.tbl, flatten_int(indices))
 
   if (is_grouped_df(.tbl)) {
-    .chacha_grouped_df(.tbl, steps)
-  } else {
-    vec_slice(.tbl, flatten_int(steps))
+    tbl_slice <- new_grouped_df(
+      tbl_slice,
+      vec_cbind(group_keys(.tbl), tibble(.rows := new_rows)),
+      class = "dance_grouped_df"
+    )
   }
+
+  tbl_slice
 }
