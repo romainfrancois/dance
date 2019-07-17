@@ -9,3 +9,7 @@ bolero_lgl_steps_to_indices <- function(steps, n_steps_, original_rows) {
     .Call(`_dance_bolero_lgl_steps_to_indices`, steps, n_steps_, original_rows)
 }
 
+salsa_check_sizes <- function(steps, rows, n_formulas_) {
+    invisible(.Call(`_dance_salsa_check_sizes`, steps, rows, n_formulas_))
+}
+

@@ -1,20 +1,9 @@
-#include <Rcpp.h>
-using namespace Rcpp;
-
-R_xlen_t convert_R_xlen(SEXP x) {
-  switch(TYPEOF(x)){
-  case INTSXP: return (R_xlen_t) INTEGER_ELT(x, 0);
-  case REALSXP: return (R_xlen_t) REAL_ELT(x, 0);
-  default:
-    return 0;
-  }
-}
-
+#include "dance.h"
 
 // [[Rcpp::export]]
 void bolero_check_results(SEXP steps, SEXP rows, SEXP nsteps_) {
   R_xlen_t n = XLENGTH(steps);
-  R_xlen_t n_steps = convert_R_xlen(nsteps_);
+  R_xlen_t n_steps = dance::convert_R_xlen(nsteps_);
 
   for (R_xlen_t i=0; i<n; i++) {
     // the number of rows in the i'th group
@@ -33,7 +22,7 @@ void bolero_check_results(SEXP steps, SEXP rows, SEXP nsteps_) {
 // [[Rcpp::export]]
 SEXP bolero_lgl_steps_to_indices(SEXP steps, SEXP n_steps_, SEXP original_rows) {
   R_xlen_t n = XLENGTH(steps);
-  R_xlen_t n_steps = convert_R_xlen(n_steps_);
+  R_xlen_t n_steps = dance::convert_R_xlen(n_steps_);
 
   // the indices relative to the original data
   SEXP indices = PROTECT(Rf_allocVector(VECSXP, n));

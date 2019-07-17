@@ -30,10 +30,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// salsa_check_sizes
+void salsa_check_sizes(SEXP steps, SEXP rows, SEXP n_formulas_);
+RcppExport SEXP _dance_salsa_check_sizes(SEXP stepsSEXP, SEXP rowsSEXP, SEXP n_formulas_SEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type steps(stepsSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type n_formulas_(n_formulas_SEXP);
+    salsa_check_sizes(steps, rows, n_formulas_);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dance_bolero_check_results", (DL_FUNC) &_dance_bolero_check_results, 3},
     {"_dance_bolero_lgl_steps_to_indices", (DL_FUNC) &_dance_bolero_lgl_steps_to_indices, 3},
+    {"_dance_salsa_check_sizes", (DL_FUNC) &_dance_salsa_check_sizes, 3},
     {NULL, NULL, 0}
 };
 
