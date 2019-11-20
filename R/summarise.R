@@ -42,7 +42,12 @@
 #'
 #' @export
 tango <- function(.tbl, ..., .env = caller_env()) {
-  vec_cbind(polka(.tbl), waltz(.tbl, ..., .env = .env))
+  grps <- polka(.tbl)
+  out <- vec_cbind(grps, waltz(.tbl, ..., .env = .env))
+  if (is_grouped_df(grps)) {
+    out <- new_grouped_df(out, attr(grps, "groups"))
+  }
+  out
 }
 
 #' @rdname tango
